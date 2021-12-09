@@ -1,2 +1,2 @@
 # digital-pharma-addon
-Digital Pharama
+Digital Pharma
