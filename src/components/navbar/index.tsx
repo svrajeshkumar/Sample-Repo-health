@@ -1,8 +1,14 @@
 import { Box, Typography, Button } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import ROUTES from "../../navigation/routes";
 
 
 const NavBar:React.FC = () => {
+    const navigate = useNavigate()
+    const navigateToSignUpScreen = () => {
+        navigate(ROUTES.SIGNUPSCREEN);
+      };
   return (
     <Box sx={{
         display: "flex",
@@ -24,7 +30,7 @@ const NavBar:React.FC = () => {
         <Typography component={"a"} onClick={() => {}}>
             Folks
         </Typography>
-        <Button onClick={() => {}}>
+        <Button onClick={() => navigateToSignUpScreen()}>
             Sign Up
         </Button>
     </Box>

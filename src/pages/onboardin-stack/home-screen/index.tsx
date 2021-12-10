@@ -18,7 +18,7 @@ const HomeScreen: React.FC = () => {
         <NavBar/>
         <Box
           sx={{
-            backgroundColor: "red",
+            
             display: "flex",
             flexDirection: "row",
             justifyContent:"space-around"
@@ -31,7 +31,7 @@ const HomeScreen: React.FC = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems:"flex-start",
-              marginLeft: "14vw"
+              marginLeft: "14vw",
             }}
           >
             <Typography sx={{
@@ -45,7 +45,7 @@ const HomeScreen: React.FC = () => {
             }}>A pharmacy to ease your meds.</Typography>
           </Box>
           
-          <Box component="img" src={IMAGES.PHARMACY_IMAGE}/>
+          <Box component="img" justifyContent={"center"} alignItems={"center"} src={IMAGES.PHARMACY_IMAGE} height={"500px"} width={"600px"}/>
        
           
         </Box>
