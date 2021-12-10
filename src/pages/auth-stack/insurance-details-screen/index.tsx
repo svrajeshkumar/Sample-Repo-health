@@ -4,12 +4,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../../assets/images";
 import NavBar from "../../../components/navbar";
-import ROUTES from "../../../navigation/routes"
+import ROUTES from "../../../navigation/routes";
 
-const SignUpScreen: React.FC = () => {
-  const navigate = useNavigate()
-  const navigateToInsuranceDetailsScreen = () => {
-    navigate(ROUTES.INSURANCE_DETAILS_SCREEN)
+const InsuranceDetailsScreen: React.FC = () => {
+    const navigate = useNavigate()
+  const navigateToUploadPrescriptionScreen = () => {
+    navigate(ROUTES.UPLOAD_PRESCRIPTION_SCREEN)
   }
   return (
     <div>
@@ -18,7 +18,6 @@ const SignUpScreen: React.FC = () => {
           <NavBar />
           <Box
             sx={{
-              
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
@@ -41,15 +40,14 @@ const SignUpScreen: React.FC = () => {
                   fontSize: "40px",
                 }}
               >
-                Get Started{" "}
+                Link your Insurance{" "}
               </Typography>
               <Typography
                 sx={{
                   fontSize: "20px",
                 }}
               >
-                You're just a few moments away from switching to a better,
-                simpler pharmacy
+                We have partnered with top insurance companies, for you.
               </Typography>
             </Box>
 
@@ -70,6 +68,11 @@ const SignUpScreen: React.FC = () => {
                 marginRight: "10vw",
               }}
             >
+              <TextField
+                label="Insurance ID Number"
+                type="email"
+                variant="outlined"
+              ></TextField>
               <Box
                 sx={{
                   display: "flex",
@@ -77,40 +80,29 @@ const SignUpScreen: React.FC = () => {
                 }}
               >
                 <TextField
-                  label="Legal First Name"
+                  label="Rx Bin"
                   variant="outlined"
                   sx={{
                     paddingRight: "10px",
                   }}
                 ></TextField>
-                <TextField
-                  label="Legal Last Name"
-                  variant="outlined"
-                ></TextField>
+                <TextField label="Rx Group" variant="outlined"></TextField>
               </Box>
+
               <TextField
-                label="Email Address"
+                label="Rx PCN"
                 type="email"
                 variant="outlined"
               ></TextField>
               <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-              ></TextField>
-              <TextField
-                label="Phone Number"
+                label="Insurance Phone Number"
                 type="text"
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 variant="outlined"
               ></TextField>
-              <TextField
-                  label="Doctors Name"
-                  variant="outlined"
-                ></TextField>
               <Button
-              onClick={() => navigateToInsuranceDetailsScreen()}
-              sx={{
+              onClick={() => {navigateToUploadPrescriptionScreen()}}
+                sx={{
                   backgroundColor: "#0074c0",
                   color: "white",
                   borderRadius: "20px",
@@ -118,7 +110,10 @@ const SignUpScreen: React.FC = () => {
                   marginTop: "20px",
                   paddingRight: "100px",
                   paddingLeft: "100px",
-              }}>Next</Button>
+                }}
+              >
+                Next
+              </Button>
             </Box>
           </Box>
         </Box>
@@ -127,4 +122,4 @@ const SignUpScreen: React.FC = () => {
   );
 };
 
-export default SignUpScreen;
+export default InsuranceDetailsScreen;
