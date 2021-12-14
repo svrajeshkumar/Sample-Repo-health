@@ -1,16 +1,21 @@
-import { Box, Typography, Button, Input, TextField } from "@mui/material";
+import { Box, Typography, Button, Input, TextField, Dialog } from "@mui/material";
 import { height } from "@mui/system";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../../assets/images";
 import NavBar from "../../../components/navbar";
-import ROUTES from "../../../navigation/routes"
+import ROUTES from "../../../navigation/routes";
+import ScanditBarcodeScanner from "scandit-sdk-react";
+import { KEYS } from "../../../constants/keys";
+import { Barcode, ScanSettings } from "scandit-sdk";
 
 const SignUpScreen: React.FC = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const navigateToInsuranceDetailsScreen = () => {
-    navigate(ROUTES.INSURANCE_DETAILS_SCREEN)
-  }
+    navigate(ROUTES.INSURANCE_DETAILS_SCREEN);
+  };
+
+ 
   return (
     <div>
       <Box>
@@ -18,7 +23,6 @@ const SignUpScreen: React.FC = () => {
           <NavBar />
           <Box
             sx={{
-              
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-around",
@@ -104,13 +108,14 @@ const SignUpScreen: React.FC = () => {
                 inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
                 variant="outlined"
               ></TextField>
-              <TextField
-                  label="Doctors Name"
-                  variant="outlined"
-                ></TextField>
+              <TextField label="Doctors Name" variant="outlined"></TextField>
               <Button
-              onClick={() => navigateToInsuranceDetailsScreen()}
-              sx={{
+                onClick={() => 
+                  navigateToInsuranceDetailsScreen()
+               
+                
+                }
+                sx={{
                   backgroundColor: "#0074c0",
                   color: "white",
                   borderRadius: "20px",
@@ -118,8 +123,13 @@ const SignUpScreen: React.FC = () => {
                   marginTop: "20px",
                   paddingRight: "100px",
                   paddingLeft: "100px",
-              }}>Next</Button>
+                }}
+              >
+                Next
+              </Button>
             </Box>
+           
+           
           </Box>
         </Box>
       </Box>

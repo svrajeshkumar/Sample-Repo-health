@@ -2,8 +2,11 @@ import { Box, Button, Dialog, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
+import { Barcode, ScanSettings } from "scandit-sdk";
 import NavBar from "../../../components/navbar";
 import ROUTES from "../../../navigation/routes";
+import ScanditBarcodeScanner from "scandit-sdk-react";
+import { KEYS } from "../../../constants/keys";
 
 const UploadingPrescriptionScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -13,18 +16,24 @@ const UploadingPrescriptionScreen: React.FC = () => {
 
   const webcamRef = React.useRef(null);
   const [imgSRC, setImgSRC] = useState('')
-  const [files, setFile] = useState([]);
+  const [files, setFile] = useState<any[]>([]);
   const [cameraDialog, setCameraDialog] = useState(false)
   const fileHandler = (e: any) => {
     console.log(e.target.files);
 
-    let allfiles = [];
+    let allfiles:any[] = [];
     for (let i = 0; i < e.target.files.length; i++) {
       allfiles.push(e.target.files[i]);
     }
     if (allfiles.length > 0) {
       //@ts-ignore
-      setFile(allfiles);
+      if(files.length > 0){
+          //@ts-ignore
+        setFile(allfiles).push(...files)
+      }else{
+        setFile(allfiles)
+      }
+      
     }
   };
 
@@ -39,6 +48,11 @@ const UploadingPrescriptionScreen: React.FC = () => {
     return base64ToString
 }
 
+const getScanSettings = () => {
+  return new ScanSettings({ enabledSymbologies: [Barcode.Symbology.CODE128, Barcode.Symbology.EAN13,Barcode.Symbology.EAN8] });
+};
+
+const [openDialog, setOpenDialog] = useState(false)
 
   const capturePhoto = React.useCallback(() => {
     //@ts-ignore
@@ -90,7 +104,7 @@ const UploadingPrescriptionScreen: React.FC = () => {
                   Upload Prescriptions{" "}
                 </Typography>
               )}
-              {!(files.length > 0 || imgSRC) ? (
+              {!(files.length > 0) ? (
                 <Typography
                   sx={{
                     fontSize: "20px",
@@ -100,9 +114,9 @@ const UploadingPrescriptionScreen: React.FC = () => {
                   We will reach out to them, and transfer it to us.
                 </Typography>
               ) : (
-               imgSRC ? 
-               <img height={"500px"} width={"700px"}  src={imgSRC}  />
-                  :
+              
+              //  <img height={"500px"} width={"700px"}  src={imgSRC}  />
+                  
                 files.map((file, key) => {
                   return (
                     <div key={key} className="Row">
@@ -167,7 +181,7 @@ const UploadingPrescriptionScreen: React.FC = () => {
                   display: "flex",
                   flexDirection: "column",
                   justifyContent: "space-around",
-                  height: "5vh",
+                  height: "20vh",
                 }}
               >
                 <Typography
@@ -212,6 +226,23 @@ const UploadingPrescriptionScreen: React.FC = () => {
               >
                 Upload
               </Button>
+
+              <Button
+                onClick={() => {
+                 setOpenDialog(true)
+                }}
+                sx={{
+                  backgroundColor: "#0074c0",
+                  color: "white",
+                  borderRadius: "20px",
+                  alignSelf: "flex-start",
+                  marginTop: "10px",
+                  paddingRight: "100px",
+                  paddingLeft: "100px",
+                }}
+              >
+                Scan It
+              </Button>
             </Box>
           </Box>
         </Box>
@@ -249,6 +280,28 @@ const UploadingPrescriptionScreen: React.FC = () => {
         </Button></>
         
       </Dialog>
+      <Dialog open={openDialog} onBackdropClick={() => setOpenDialog(false)} sx={{
+             
+            }}> <Box sx={{
+              width: '100%',
+              height: '100%'
+            }}>
+              <ScanditBarcodeScanner
+                // Library licensing & configuration options (see https://docs.scandit.com/stable/web/globals.html#configure)
+                licenseKey={KEYS.LICENSE_KEYS}
+                engineLocation="https://cdn.jsdelivr.net/npm/scandit-sdk@5.x/build" // could also be a local folder, e.g. "build"
+                // Picker events
+                onReady={() => {console.log('ss')}}
+                onScan={(data) => console.log(data)}
+                onScanError={console.log}
+                // Picker options
+                playSoundOnScan={true}
+                scanSettings={getScanSettings()}
+                accessCamera={true}
+                preloadBlurryRecognition={true}
+                preloadEngine={true}
+              />
+            </Box></Dialog>
     </div>
   );
 };
