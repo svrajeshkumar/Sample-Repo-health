@@ -1,4 +1,11 @@
-import { Box, Typography, Button, Input, TextField } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  styled,
+  TextField,
+  Grid,
+} from "@mui/material";
 import { height } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,118 +14,103 @@ import NavBar from "../../../components/navbar";
 import ROUTES from "../../../navigation/routes";
 
 const InsuranceDetailsScreen: React.FC = () => {
-    const navigate = useNavigate()
+  const navigate = useNavigate();
   const navigateToUploadPrescriptionScreen = () => {
-    navigate(ROUTES.UPLOAD_PRESCRIPTION_SCREEN)
-  }
+    navigate(ROUTES.UPLOAD_PRESCRIPTION_SCREEN);
+  };
+
+  const StyledMainBox = styled(Box)(({ theme }) => ({
+    width: "100%",
+    minHeight: 488,
+    display: "flex",
+    alignItems: "center",
+  }));
+
   return (
-    <div>
-      <Box>
-        <Box display="flex" flexDirection="column" height={"100vh"} flex={1}>
-          <NavBar />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-around",
-              alignItems: "center",
-            }}
-            flex={0.92}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "flex-start",
-                marginLeft: "14vw",
-                flex: 0.5,
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "40px",
-                }}
-              >
-                Link your Insurance{" "}
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "20px",
-                }}
-              >
-                We have partnered with top insurance companies, for you.
-              </Typography>
-            </Box>
-
-            <Box
-              component="form"
-              sx={{
-                flex: 0.5,
-                display: "flex",
-                flexDirection: "column",
-              }}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-around",
-                height: "60vh",
-                marginRight: "10vw",
-              }}
-            >
-              <TextField
-                label="Insurance ID Number"
-                type="email"
-                variant="outlined"
-              ></TextField>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                }}
-              >
-                <TextField
-                  label="Rx Bin"
-                  variant="outlined"
-                  sx={{
-                    paddingRight: "10px",
-                  }}
-                ></TextField>
-                <TextField label="Rx Group" variant="outlined"></TextField>
-              </Box>
-
-              <TextField
-                label="Rx PCN"
-                type="email"
-                variant="outlined"
-              ></TextField>
-              <TextField
-                label="Insurance Phone Number"
-                type="text"
-                inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-                variant="outlined"
-              ></TextField>
-              <Button
-              onClick={() => {navigateToUploadPrescriptionScreen()}}
-                sx={{
-                  backgroundColor: "#0074c0",
-                  color: "white",
-                  borderRadius: "20px",
-                  alignSelf: "center",
-                  marginTop: "20px",
-                  paddingRight: "100px",
-                  paddingLeft: "100px",
-                }}
-              >
-                Next
-              </Button>
-            </Box>
-          </Box>
-        </Box>
+    <StyledMainBox>
+      <Box sx={{ flex: 1, paddingLeft: "40px" }}>
+        <Typography color="primary" component="h2" variant="h3">
+          Get Started
+          <br />
+        </Typography>
+        <Typography
+          sx={{ paddingRight: { md: "80px" } }}
+          variant="body1"
+          component="p"
+        >
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry. Lorem Ipsum has been the industry's standard dummy text ever
+          since the 1500s, when an unknown printer took a galley of type and
+          scrambled it to make a type specimen book. It has survived not only
+          five centurie
+        </Typography>
       </Box>
-    </div>
+      <Box sx={{ flex: 1, paddingRight: "40px" }}>
+        <Grid spacing={1} sx={{ marginLeft: "-10px", width: "100%" }} container>
+          <Grid item md={6}>
+            <TextField
+              fullWidth
+              label="Insurance ID Number"
+              type="email"
+              variant="outlined"
+            ></TextField>
+          </Grid>
+          <Grid item md={6}>
+            <TextField
+              fullWidth
+              label="Rx Bin"
+              variant="outlined"
+              sx={{
+                paddingRight: "10px",
+              }}
+            ></TextField>
+          </Grid>
+          <Grid item md={12}>
+            <TextField
+              fullWidth
+              label="Rx Group"
+              variant="outlined"
+            ></TextField>
+          </Grid>
+          <Grid item md={12}>
+            <TextField
+              fullWidth
+              label="Rx PCN"
+              type="email"
+              variant="outlined"
+            ></TextField>
+          </Grid>
+          <Grid item md={12}>
+            <TextField
+              fullWidth
+              label="Insurance Phone Number"
+              type="text"
+              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+              variant="outlined"
+            ></TextField>
+          </Grid>
+
+          <Grid item md={12}>
+            <Button
+              onClick={() => {
+                navigateToUploadPrescriptionScreen();
+              }}
+              sx={{
+                backgroundColor: "#0074c0",
+                color: "white",
+                borderRadius: "20px",
+                alignSelf: "center",
+                marginTop: "20px",
+                paddingRight: "100px",
+                paddingLeft: "100px",
+              }}
+            >
+              Next
+            </Button>
+          </Grid>
+        </Grid>
+      </Box>
+    </StyledMainBox>
   );
 };
 

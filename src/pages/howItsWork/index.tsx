@@ -1,9 +1,8 @@
 import React from "react";
 import { Box, styled, Typography, Grid } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
-const HomeScreen: React.FC = () => {
-  const StyledBannerMainBox = styled(Box)(({ theme }) => ({
+const HowItsWorkScreen: React.FC = () => {
+  const StyledMainBox = styled(Box)(({ theme }) => ({
     width: "100%",
     height: 488,
     display: "flex",
@@ -16,11 +15,11 @@ const HomeScreen: React.FC = () => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center center",
     backgroundSize: "contain",
-    backgroundImage: `url(https://www.psdmockups.com/wp-content/uploads/2021/01/Medical-Pills-Bottle-PSD-Mockup.jpg)`,
+    backgroundImage: `url(https://cdn.aarp.net/content/dam/aarp/health/drugs_supplements/2018/10/1140-pharmacist-woman.jpg)`,
   }));
 
   return (
-    <StyledBannerMainBox>
+    <StyledMainBox>
       <Grid container alignItems="center">
         <Grid
           sx={{ paddingLeft: { md: `40px` }, paddingRight: { md: "30px" } }}
@@ -28,9 +27,9 @@ const HomeScreen: React.FC = () => {
           md={6}
         >
           <Typography color="primary" component="h2" variant="h3">
-            Your Medication To You,
+            How Our Digital
             <br />
-            Safely Delivered
+            Pharmacy Work's ?
           </Typography>
           <Typography
             sx={{ paddingRight: { md: "80px" } }}
@@ -48,8 +47,8 @@ const HomeScreen: React.FC = () => {
           <StyledImageBox />
         </Grid>
       </Grid>
-    </StyledBannerMainBox>
+    </StyledMainBox>
   );
 };
 
-export default HomeScreen;
+export default HowItsWorkScreen;
