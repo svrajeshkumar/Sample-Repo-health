@@ -117,7 +117,6 @@ const UploadingPrescriptionScreen: React.FC = () => {
     <div>
       <Box>
         <Box display="flex" flexDirection="column" height={"100vh"} flex={1}>
-          <NavBar />
           <Box
             sx={{
               display: "flex",
