@@ -1,5 +1,12 @@
-import { Box, Button, Dialog, TextField, Typography } from "@mui/material";
-import React, { useState } from "react";
+import {
+  Box,
+  Button,
+  Dialog,
+  Snackbar,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
 import { Barcode, ScanSettings } from "scandit-sdk";
@@ -7,7 +14,8 @@ import NavBar from "../../../components/navbar";
 import ROUTES from "../../../navigation/routes";
 import ScanditBarcodeScanner from "scandit-sdk-react";
 import { KEYS } from "../../../constants/keys";
-
+import { BarcodesEntity, ScandIt } from "../../../interfaces/interface";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 const UploadingPrescriptionScreen: React.FC = () => {
   const navigate = useNavigate();
   const navigateToHome = () => {
@@ -58,7 +66,8 @@ const UploadingPrescriptionScreen: React.FC = () => {
   };
 
   const [openDialog, setOpenDialog] = useState(false);
-
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [scanditData, setScanditData] = useState<ScandIt>();
   const capturePhoto = React.useCallback(() => {
     //@ts-ignore
 
@@ -69,10 +78,46 @@ const UploadingPrescriptionScreen: React.FC = () => {
     }
   }, [webcamRef]);
 
+  useEffect(() => {
+    //  console.log(scanditData)
+    if (scanditData) {
+      if (scanditData.barcodes) {
+        if (scanditData.barcodes.length > 0) {
+          console.log(scanditData.barcodes);
+          setOpenSnackbar(true);
+        }
+      }
+    }
+  }, [scanditData]);
+
+  const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
+    props,
+    ref
+  ) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const getSnackBar = () => {
+    {
+      scanditData.barcodes &&
+        scanditData.barcodes.length > 0 &&
+        scanditData.barcodes.map((value) => {
+          return (
+            <Snackbar
+              open={openSnackbar}
+              onClose={() => setOpenSnackbar(false)}
+              message={value}
+            />
+          );
+        });
+    }
+  };
+
   return (
     <div>
       <Box>
         <Box display="flex" flexDirection="column" height={"100vh"} flex={1}>
+          <NavBar />
           <Box
             sx={{
               display: "flex",
@@ -306,7 +351,9 @@ const UploadingPrescriptionScreen: React.FC = () => {
             onReady={() => {
               console.log("ss");
             }}
-            onScan={(data) => console.log(data)}
+            onScan={(data) => {
+              setScanditData(data);
+            }}
             onScanError={console.log}
             // Picker options
             playSoundOnScan={true}
@@ -317,6 +364,28 @@ const UploadingPrescriptionScreen: React.FC = () => {
           />
         </Box>
       </Dialog>
+      {scanditData &&
+        scanditData.barcodes &&
+        scanditData.barcodes.length > 0 &&
+        scanditData.barcodes.map((value) => {
+          return (
+            <Snackbar
+              open={openSnackbar}
+              onClose={() => setOpenSnackbar(false)}
+              // message={value.data}
+              anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
+              autoHideDuration={1500}
+            >
+              <Alert
+                onClose={() => setOpenSnackbar(false)}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                {`The scanned barcode is ${value.data}`}
+              </Alert>
+            </Snackbar>
+          );
+        })}
     </div>
   );
 };
