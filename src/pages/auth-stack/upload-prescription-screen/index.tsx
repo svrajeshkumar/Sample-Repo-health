@@ -16,6 +16,7 @@ import ScanditBarcodeScanner from "scandit-sdk-react";
 import { KEYS } from "../../../constants/keys";
 import { BarcodesEntity, ScandIt } from "../../../interfaces/interface";
 import MuiAlert, { AlertProps } from "@mui/material/Alert";
+import { useDropzone } from "react-dropzone";
 const UploadingPrescriptionScreen: React.FC = () => {
   const navigate = useNavigate();
   const navigateToHome = () => {
@@ -68,6 +69,7 @@ const UploadingPrescriptionScreen: React.FC = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [scanditData, setScanditData] = useState<ScandIt>();
+  const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
   const capturePhoto = React.useCallback(() => {
     //@ts-ignore
 
@@ -112,6 +114,10 @@ const UploadingPrescriptionScreen: React.FC = () => {
         });
     }
   };
+
+  useEffect(() => {
+    console.log(acceptedFiles)
+  }, [acceptedFiles])
 
   return (
     <div>
@@ -201,6 +207,15 @@ const UploadingPrescriptionScreen: React.FC = () => {
                 marginRight: "10vw",
               }}
             >
+              <Box
+                sx={{ backgroundColor: "red", padding: '20px', marginBottom: '50px', borderColor: 'black',borderStyle: 'groove',borderWidth: '1px',borderRadius: '6px'}}
+              >
+                <Box {...getRootProps({ className: "dropzone" })}>
+                  <input {...getInputProps()}/>
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+                </Box>
+              </Box>
+
               <Box
                 sx={{
                   display: "flex",
