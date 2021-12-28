@@ -6,6 +6,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Webcam from "react-webcam";
@@ -111,6 +112,22 @@ const UploadingPrescriptionScreen: React.FC = () => {
           );
         });
     }
+  };
+
+  const getBarcodeData = (barcode) => {
+    fetch(
+      `https://api.barcodespider.com/v1/lookup?token=693eb054bf49ae9f4add&upc=${barcode}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        alert(JSON.stringify(data));
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -291,6 +308,38 @@ const UploadingPrescriptionScreen: React.FC = () => {
               >
                 Scan It
               </Button>
+
+              {scanditData &&
+                scanditData.barcodes &&
+                scanditData.barcodes.length > 0 &&
+                scanditData.barcodes.map((value) => {
+                  return (
+                    <Box
+                      sx={{
+                        marginTop:"10px",
+                        border: "1px solid gray",
+                        padding: "10px",
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Box>
+                        <p>Scanned Barcode: {value.data}</p>
+                        <Button
+                          sx={{ marginTop: "10px" }}
+                          variant="contained"
+                          onClick={() => {
+                            getBarcodeData(value.data);
+                          }}
+                        >
+                          Get Details
+                        </Button>
+                      </Box>
+                      <Box></Box>
+                    </Box>
+                  );
+                })}
             </Box>
           </Box>
         </Box>
@@ -371,7 +420,6 @@ const UploadingPrescriptionScreen: React.FC = () => {
             <Snackbar
               open={openSnackbar}
               onClose={() => setOpenSnackbar(false)}
-              // message={value.data}
               anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
               autoHideDuration={1500}
             >

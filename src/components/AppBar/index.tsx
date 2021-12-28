@@ -1,87 +1,54 @@
-import React, { useState } from "react";
-import { Box, AppBar, Toolbar, Tab, Tabs, styled } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
-import ROUTES from "../../navigation/routes";
-import logo from "../../assets/_logo.png";
+import React from "react";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Logo from "../../assets/logo.png";
+import MenuIcon from "../../assets/icons/menu.png";
+import Box from "@mui/material/Box";
 
-interface navLinksProps {
-  label: string;
-  route: string;
+import {
+  StyledAppBar,
+  StyledElemtsBox,
+  StyledCartIcon,
+  StyledBadgeIcon,
+  MenuIconWrapper,
+  StyledAvatar,
+  StyledNavSearch,
+} from "./styled";
+import SearchInputComponent from "../searchInput";
+
+function stringAvatar(name) {
+  return {
+    children: `${name.split(" ")[0][0]}${name.split(" ")[1][0]}`,
+  };
 }
 
-const navLinks: navLinksProps[] = [
-  { label: "How It Works", route: ROUTES.HOWITSWORK },
-  { label: "Pricing", route: ROUTES.PRICING },
-  { label: "Reviews", route: ROUTES.REVIEWS },
-  { label: "Sign Up", route: ROUTES.SIGNUPSCREEN },
-];
-
 const AppBarComponent: React.FC = () => {
-  const navigate = useNavigate();
-  const paramns = useParams();
-  const [tabIndex, setTabIndex] = useState<Number | boolean>(false);
-
-  const StylesAppBar = styled(AppBar)(({ theme }) => ({
-    backgroundColor: theme.palette.common.white,
-    borderBottom: `1px solid ${theme.palette.divider}`,
-  }));
-
-  const StyledTab = styled(Tab)(() => ({
-    minHeight: 64,
-    textTransform: "none",
-    fontWeight: 600,
-  }));
-  const navigateTo = (link) => {
-    navigate(link);
-  };
-
-  React.useEffect(() => {
-    switch (window.location.pathname) {
-      case "/how-its-work":
-        setTabIndex(0);
-        break;
-      case "/pricing":
-        setTabIndex(1);
-        break;
-      case "/review":
-        setTabIndex(2);
-        break;
-      case "/sign-up":
-        setTabIndex(3);
-        break;
-      default:
-        setTabIndex(false);
-    }
-  }, [paramns]);
-
   return (
-    <StylesAppBar color="primary" elevation={0} position="static">
+    <StyledAppBar color="primary" elevation={0} position="fixed">
       <Toolbar>
-        <Box>
-          <img
-            onClick={() => {
-              navigate(ROUTES.HOMESCREEN);
-            }}
-            width={90}
-            alt="digital-pharmacy"
-            src={logo}
-          />
-        </Box>
-        <Box sx={{ flexGrow: 1, display: "flex", justifyContent: "flex-end" }}>
-          <Tabs value={tabIndex} onChange={(_, value) => setTabIndex(value)}>
-            {navLinks.map((link, index) => (
-              <StyledTab
-                onClick={() => {
-                  navigateTo(link.route);
-                }}
-                key={index}
-                label={link.label}
-              />
-            ))}
-          </Tabs>
-        </Box>
+        <MenuIconWrapper>
+          <IconButton>
+            <img width={35} src={MenuIcon} alt="menu-icon" />
+          </IconButton>
+        </MenuIconWrapper>
+        <StyledElemtsBox>
+          <img width={150} src={Logo} alt="logo" />
+          <StyledNavSearch>
+            <SearchInputComponent placeholder="Search..." />
+          </StyledNavSearch>
+        </StyledElemtsBox>
+        <StyledAvatar {...stringAvatar("Kent Dodds")} />
+        <StyledCartIcon>
+          <IconButton>
+            <ShoppingCartIcon sx={{ color: "#FFFFFF" }} />
+          </IconButton>
+          <StyledBadgeIcon>
+            <span>10</span>
+          </StyledBadgeIcon>
+        </StyledCartIcon>
       </Toolbar>
-    </StylesAppBar>
+    </StyledAppBar>
   );
 };
 

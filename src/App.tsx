@@ -11,14 +11,12 @@ import SignUpScreen from "./pages/auth-stack/sign-up-screen";
 import HowItsWorkScreen from "./pages/howItsWork";
 import PricingScreen from "./pages/pricing";
 
-import AppBarComponent from "./components/AppBar";
-import FooterComponent from "./components/footer";
+import DefaultLayout from "./containers/layouts/default";
 
 function App() {
   return (
     <BrowserRouter>
-      <AppBarComponent />
-      <main style={{ minHeight: `calc(100vh - 114px)` }}>
+      <DefaultLayout>
         <Routes>
           <Route path={ROUTES.HOMESCREEN} element={<HomeScreen />} />
           <Route path={ROUTES.HOWITSWORK} element={<HowItsWorkScreen />} />
@@ -33,8 +31,7 @@ function App() {
             element={<InsuranceDetailsScreen />}
           />
         </Routes>
-      </main>
-      <FooterComponent />
+      </DefaultLayout>
     </BrowserRouter>
   );
 }
