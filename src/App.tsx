@@ -7,21 +7,23 @@ import InsuranceDetailsScreen from "./pages/auth-stack/insurance-details-screen"
 
 // Screens
 import HomeScreen from "./pages/onboardin-stack/home-screen";
-import SignUpScreen from "./pages/auth-stack/sign-up-screen";
+//import SignUpScreen from "./pages/auth-stack/sign-up-screen";
 import HowItsWorkScreen from "./pages/howItsWork";
 import PricingScreen from "./pages/pricing";
 
 import DefaultLayout from "./containers/layouts/default";
+import SignUpScreen from "./pages/auth-stack/siginup";
 
 function App() {
   return (
     <BrowserRouter>
       <DefaultLayout>
         <Routes>
+          {/* <Route path={ROUTES.SIGNUPSCREEN} element={<SignUpScreen />} />
           <Route path={ROUTES.HOMESCREEN} element={<HomeScreen />} />
           <Route path={ROUTES.HOWITSWORK} element={<HowItsWorkScreen />} />
-          <Route path={ROUTES.PRICING} element={<PricingScreen />} />
-          <Route path={ROUTES.SIGNUPSCREEN} element={<SignUpScreen />} />
+          <Route path={ROUTES.PRICING} element={<PricingScreen />} /> */}
+          <Route path={ROUTES.HOMESCREEN} element={<SignUpScreen />} />
           <Route
             path={ROUTES.UPLOAD_PRESCRIPTION_SCREEN}
             element={<UploadingPrescriptionScreen />}
