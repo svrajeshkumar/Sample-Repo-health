@@ -48,7 +48,7 @@ import { MainInfoBox } from "../../../components/main-info-box";
               <TextField
                 fullWidth
                 label="Doctor first name"
-                type="date"
+                
                 variant="outlined"
               ></TextField>
             </Grid>
@@ -56,7 +56,7 @@ import { MainInfoBox } from "../../../components/main-info-box";
               <TextField
                 fullWidth
                 label="Doctor last name"
-                type="date"
+                
                 variant="outlined"
               ></TextField>
             </Grid>
