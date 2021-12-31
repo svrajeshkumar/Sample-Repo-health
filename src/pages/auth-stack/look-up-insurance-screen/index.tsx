@@ -10,11 +10,14 @@ import { height } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IMAGES } from "../../../assets/images";
+import { MainInfoBox } from "../../../components/main-info-box";
 import NavBar from "../../../components/navbar";
+import { Strings } from "../../../constants/strings";
 import ROUTES from "../../../navigation/routes";
 import { StyledButton } from "./style";
+import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
 
-const InsuranceDetailsScreen: React.FC = () => {
+const LookUpInsuranceScreen: React.FC = () => {
   const navigate = useNavigate();
   const navigateToUploadPrescriptionScreen = () => {
     navigate(ROUTES.UPLOAD_PRESCRIPTION_SCREEN);
@@ -27,25 +30,18 @@ const InsuranceDetailsScreen: React.FC = () => {
     alignItems: "center",
   }));
 
+  const HealthAndSafetyIconStyled = styled(HealthAndSafetyIcon)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    fontSize: 100
+  }));
+
   return (
     <StyledMainBox>
-      <Box sx={{ flex: 1, paddingLeft: "40px" }}>
-        <Typography color="primary" component="h2" variant="h3">
-          Get Started
-          <br />
-        </Typography>
-        <Typography
-          sx={{ paddingRight: { md: "80px" } }}
-          variant="body1"
-          component="p"
-        >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centurie
-        </Typography>
-      </Box>
+      <MainInfoBox
+        headerText={Strings.LOOK_UP_INSURNACE}
+        bodyText={Strings.EDGE_COMP_PROVIDERS}
+        icon={<HealthAndSafetyIconStyled/>}
+      />
       <Box sx={{ flex: 1, paddingRight: "40px" }}>
         <Grid spacing={1} sx={{ marginLeft: "-10px", width: "100%" }} container>
           <Grid item md={6}>
@@ -96,7 +92,6 @@ const InsuranceDetailsScreen: React.FC = () => {
               onClick={() => {
                 navigateToUploadPrescriptionScreen();
               }}
-              
             >
               Next
             </StyledButton>
@@ -107,4 +102,4 @@ const InsuranceDetailsScreen: React.FC = () => {
   );
 };
 
-export default InsuranceDetailsScreen;
+export default LookUpInsuranceScreen;

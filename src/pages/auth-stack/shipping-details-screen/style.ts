@@ -1,6 +1,6 @@
+import React from "react";
 import { Box, Button } from "@mui/material";
 import { styled } from "@mui/system";
-import React from "react";
 
 export const StyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.secondary.main,

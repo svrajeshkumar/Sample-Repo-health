@@ -8,13 +8,15 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { MainInfoBox } from "../../../components/main-info-box";
+import { Strings } from "../../../constants/strings";
+import StartIcon from '@mui/icons-material/Start';
 import ROUTES from "../../../navigation/routes";
 
 const SignUpScreen: React.FC = () => {
   const navigate = useNavigate();
-  const navigateToInsuranceDetailsScreen = () => {
-    navigate(ROUTES.INSURANCE_DETAILS_SCREEN);
+  const navigateToShippingAddressScreen = () => {
+    navigate(ROUTES.SHIPPING_ADD_SCREEN);
   };
 
   const StyledMainBox = styled(Box)(({ theme }) => ({
@@ -24,25 +26,30 @@ const SignUpScreen: React.FC = () => {
     alignItems: "center",
   }));
 
+  const StyledButton = styled(Box)(({ theme }) => ({
+    backgroundColor: theme.palette.secondary.main,
+    color: "white",
+    borderRadius: "20px",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: "20px",
+    paddingTop: "15px",
+    paddingBottom: "15px"
+  }));
+
+  const StartIconStyled = styled(StartIcon)(({ theme }) => ({
+    color: theme.palette.secondary.main,
+    fontSize: 100
+  }));
+
   return (
     <StyledMainBox>
-      <Box sx={{ flex: 1, paddingLeft: "40px" }}>
-        <Typography color="primary" component="h2" variant="h3">
-          Get Started
-          <br />
-        </Typography>
-        <Typography
-          sx={{ paddingRight: { md: "80px" } }}
-          variant="body1"
-          component="p"
-        >
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centurie
-        </Typography>
-      </Box>
+      <MainInfoBox
+        headerText={Strings.GET_STARTED}
+        bodyText={Strings.GET_STARTED_PHARMACY}
+        icon={<StartIconStyled/>}
+      />
       <Box sx={{ flex: 1, paddingRight: "40px" }}>
         <Grid spacing={1} sx={{ marginLeft: "-10px", width: "100%" }} container>
           <Grid item md={6}>
@@ -93,6 +100,7 @@ const SignUpScreen: React.FC = () => {
               sx={{
                 paddingRight: "10px",
               }}
+              placeholder="(555) 555-555"
             ></TextField>
           </Grid>
           <Grid item md={12}>
@@ -106,20 +114,9 @@ const SignUpScreen: React.FC = () => {
             ></TextField>
           </Grid>
           <Grid item md={12}>
-            <Button
-              onClick={() => navigateToInsuranceDetailsScreen()}
-              sx={{
-                backgroundColor: "#0074c0",
-                color: "white",
-                borderRadius: "20px",
-                alignSelf: "center",
-                marginTop: "20px",
-                paddingRight: "100px",
-                paddingLeft: "100px",
-              }}
-            >
+            <StyledButton onClick={() => navigateToShippingAddressScreen()}>
               Next
-            </Button>
+            </StyledButton>
           </Grid>
         </Grid>
       </Box>

@@ -16,28 +16,21 @@ import {
   StyledMainContainerBox,
   StyledSearchWrapper,
   StyledActionCardIcon,
-} from "./styled";
-import { useNavigate } from "react-router-dom";
-import ROUTES from "../../../navigation/routes";
+} from "./style";
 
-const UploadPrescriptions: FC = () => {
-
-  const navigate = useNavigate();
-  const navigateToAddVitaminsScreen = () => {
-    navigate(ROUTES.ADD_VITAMINS_SCREEN);
-  };
+const AddVitaminsScreen: FC = () => {
   return (
     <StyledMainContainerBox>
       <Box>
-        <StyledMainTitle variant="h3">Add Prescriptions</StyledMainTitle>
+        <StyledMainTitle variant="h3">Add Vitamins</StyledMainTitle>
         <Typography
           sx={{ width: { md: "50% !important" } }}
           variant="subtitle1"
           component="p"
         >
-          Add any medications your doctor has prescribed to you. We’ll reach out
+          Add any vitamins you take as supplements. We’ll reach out
           to your previous pharmacy or your doctor to transfer your
-          prescriptions to edgepark.
+          vitamins to edgepark.
         </Typography>
       </Box>
       <StyledSearchWrapper>
@@ -49,7 +42,7 @@ const UploadPrescriptions: FC = () => {
             <StyledActionCard>
               <StyledActionCardIcon src={UploadIcon} />
               <StyledActionCardTitle variant="h6">
-                Upload Prescriptions
+                Upload Vitamins
               </StyledActionCardTitle>
             </StyledActionCard>
           </Grid>
@@ -57,7 +50,7 @@ const UploadPrescriptions: FC = () => {
             <StyledActionCard>
               <StyledActionCardIcon src={ScannedIcon} />
               <StyledActionCardTitle variant="h6">
-                Scan Prescriptions
+                Scan Your Vitamins
               </StyledActionCardTitle>
             </StyledActionCard>
           </Grid>
@@ -65,10 +58,7 @@ const UploadPrescriptions: FC = () => {
       </Box>
       <StyledButtonBox>
         <Button disableElevation={true} variant="contained" color="secondary">
-          Add Prescriptions
-        </Button>
-        <Button disableElevation={true} variant="contained" color="secondary" onClick={navigateToAddVitaminsScreen} sx={{marginLeft: '5px'}}>
-          Add Vitamins
+          Add Vitmains
         </Button>
       </StyledButtonBox>
       <Box>
@@ -81,4 +71,4 @@ const UploadPrescriptions: FC = () => {
   );
 };
 
-export default UploadPrescriptions;
+export default AddVitaminsScreen;
