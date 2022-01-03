@@ -17,3 +17,20 @@ export const StyledButton = styled(Button)(({ theme }) => ({
         backgroundColor: theme.palette.primary.main
     }
   }));
+
+  export const StyledSearchButton = styled(Button)(({ theme }) => ({
+    backgroundColor: theme.palette.secondary.main,
+    color: "white",
+    borderRadius: "20px",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // marginTop: "20px",
+    paddingTop: "20px",
+    paddingBottom: "20px",
+    width: "100px",
+    // width: '30%',
+    ":hover": {
+        backgroundColor: theme.palette.primary.main
+    }
+  }));

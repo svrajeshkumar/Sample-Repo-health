@@ -7,6 +7,7 @@ import { Strings } from "../../../constants/strings";
 import ROUTES from "../../../navigation/routes";
 import { StyledButton } from "./style";
 import CottageIcon from '@mui/icons-material/Cottage';
+import LabelTextField from "../../../components/text-field";
 
 const ShippingDetailsScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,16 @@ const ShippingDetailsScreen: React.FC = () => {
     width: "100%",
     minHeight: 488,
     display: "flex",
-    alignItems: "center",
+    justifyContent: "center",
+    alignItems: 'flex-start',
+    paddingLeft: "80px",
+    paddingRight: "80px",
+    marginTop: "30px",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+      paddingRight: "20px",
+      paddingLeft: "20px"
+    },
   }));
 
   const CottageIconStyled = styled(CottageIcon)(({ theme }) => ({
@@ -37,45 +47,36 @@ const ShippingDetailsScreen: React.FC = () => {
         <Grid spacing={1} sx={{ marginLeft: "-10px", width: "100%" }} container>
           
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label={Strings.STREET_ADD_1}
-              variant="outlined"
-            ></TextField>
+            <LabelTextField  
+             label={Strings.STREET_ADD_1}
+             placeholder=""
+            />
           </Grid>
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label={Strings.STREET_ADD_2}
-              
-              variant="outlined"
-            ></TextField>
+          <LabelTextField  
+             label={Strings.STREET_ADD_2}
+             placeholder=""
+            />
           </Grid>
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label={Strings.ZIP_CD}
-              type="text"
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              variant="outlined"
-            ></TextField>
+          <LabelTextField  
+             label={Strings.ZIP_CD}
+             placeholder=""
+            />
           </Grid>
           <Grid item md={9}>
-            <TextField
-              fullWidth
-              label={Strings.CITY}
-              type="text"
-              variant="outlined"
-            ></TextField>
+          <LabelTextField  
+             label={Strings.CITY}
+             placeholder=""
+            />
           </Grid>
           <Grid item md={3}>
-            <TextField
-              fullWidth
-              label={Strings.STATE}
-              variant="outlined"
-            ></TextField>
+          <LabelTextField  
+             label={Strings.STATE}
+             placeholder=""
+            />
           </Grid>
-          <Grid item md={12}>
+          <Grid item md={4}>
             <StyledButton
               onClick={() => {
                 navigateToAboutYouScreen();

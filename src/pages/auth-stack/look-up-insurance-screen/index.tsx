@@ -16,6 +16,7 @@ import { Strings } from "../../../constants/strings";
 import ROUTES from "../../../navigation/routes";
 import { StyledButton } from "./style";
 import HealthAndSafetyIcon from "@mui/icons-material/HealthAndSafety";
+import LabelTextField from "../../../components/text-field";
 
 const LookUpInsuranceScreen: React.FC = () => {
   const navigate = useNavigate();
@@ -27,7 +28,16 @@ const LookUpInsuranceScreen: React.FC = () => {
     width: "100%",
     minHeight: 488,
     display: "flex",
-    alignItems: "center",
+    justifyContent: "center",
+    alignItems: 'flex-start',
+    paddingLeft: "80px",
+    paddingRight: "80px",
+    marginTop: "30px",
+    [theme.breakpoints.down("md")]: {
+      flexDirection: "column",
+      paddingRight: "20px",
+      paddingLeft: "20px"
+    },
   }));
 
   const HealthAndSafetyIconStyled = styled(HealthAndSafetyIcon)(({ theme }) => ({
@@ -45,49 +55,39 @@ const LookUpInsuranceScreen: React.FC = () => {
       <Box sx={{ flex: 1, paddingRight: "40px" }}>
         <Grid spacing={1} sx={{ marginLeft: "-10px", width: "100%" }} container>
           <Grid item md={6}>
-            <TextField
-              fullWidth
-              label="Insurance ID Number"
-              type="email"
-              variant="outlined"
-            ></TextField>
+            <LabelTextField 
+             label="Insurance ID Number"
+             placeholder=""
+            />
+            
           </Grid>
           <Grid item md={6}>
-            <TextField
-              fullWidth
-              label="Rx Bin"
-              variant="outlined"
-              sx={{
-                paddingRight: "10px",
-              }}
-            ></TextField>
+            <LabelTextField 
+            label="Rx Bin"
+            placeholder=""
+            />
+          
           </Grid>
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label="Rx Group"
-              variant="outlined"
-            ></TextField>
+           <LabelTextField  
+           label="Rx Group"
+           placeholder=""
+           />
           </Grid>
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label="Rx PCN"
-              type="email"
-              variant="outlined"
-            ></TextField>
+            <LabelTextField 
+            label="Rx PCN"
+            placeholder=""
+            />
           </Grid>
           <Grid item md={12}>
-            <TextField
-              fullWidth
-              label="Insurance Phone Number"
-              type="text"
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-              variant="outlined"
-            ></TextField>
+           <LabelTextField 
+             label="Insurance Phone Number"
+             placeholder=""
+           />
           </Grid>
 
-          <Grid item md={12}>
+          <Grid item md={6}>
             <StyledButton
               onClick={() => {
                 navigateToUploadPrescriptionScreen();
