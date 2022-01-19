@@ -1,11 +1,6 @@
 const ROUTES = {
   HOMESCREEN: "/",
-  HOWITSWORK: "/how-its-work",
-  PRICING: "/pricing",
-  REVIEWS: "/reviews",
-  SIGNUPSCREEN: "/sign-up",
-  UPLOAD_PRESCRIPTION_SCREEN: "/upload-prescription",
-  INSURANCE_DETAILS_SCREEN: "/insurance-details",
+  PATIENT_INFO: "/patient-information",
 };
 
 export default ROUTES;

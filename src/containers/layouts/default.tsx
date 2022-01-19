@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { StyledMainSection } from "./styled";
-import AppBarComponent from "../../components/AppBar";
+import NavigationAppBar from "../../components/navigation";
 import FooterComponent from "../../components/footer";
 
 interface defaultLayoutProps {
@@ -10,7 +10,7 @@ interface defaultLayoutProps {
 const DefaultLayout: React.FC<defaultLayoutProps> = ({ children }) => {
   return (
     <React.Fragment>
-      <AppBarComponent />
+      <NavigationAppBar />
       <StyledMainSection>{children}</StyledMainSection>
       <FooterComponent />
     </React.Fragment>
