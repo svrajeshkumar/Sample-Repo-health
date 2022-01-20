@@ -156,18 +156,21 @@ const OnboardDoctorsInfo: React.FC<onboardDoctorsInfoProps> = ({ onClick }) => {
                 justifyContent: { xs: "center" },
               }}
             ></Box>
-            <Box
-              sx={{
-                display: "flex",
-                marginTop: "20px",
-                marginBottom: "20px",
-                alignItems: "center",
-                justifyContent: { xs: "center" },
-              }}
-            >
-              <StyledAddIcon />
-              <StyledLinkedLabel>Add another Doctor</StyledLinkedLabel>
-            </Box>
+            {selectedDoctors && searchData.length <= 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                  alignItems: "center",
+                  justifyContent: { xs: "center" },
+                }}
+              >
+                <StyledAddIcon />
+                <StyledLinkedLabel>Add another Doctor</StyledLinkedLabel>
+              </Box>
+            )}
+
             <Box
               sx={{
                 display: "flex",
@@ -192,7 +195,9 @@ const OnboardDoctorsInfo: React.FC<onboardDoctorsInfoProps> = ({ onClick }) => {
                         setSearchData(data.data);
                       })
                       .catch((error) => {
-                        console.log(error);
+                        alert(
+                          "Something went wrong please fill all the input and try again..."
+                        );
                       });
                   }
                 }}

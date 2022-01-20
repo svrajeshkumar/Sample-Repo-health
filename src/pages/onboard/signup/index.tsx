@@ -244,14 +244,15 @@ const OnboardSignup: FC = () => {
                         .then((response: any) => {
                           setLoading(false);
                           const { data } = response;
-                          console.log(data);
                           navigate(
                             `${ROUTES.PATIENT_INFO}?id=${data.data._id}&&name=${data.data.first_name}`
                           );
                         })
                         .catch((error) => {
                           setLoading(false);
-                          console.log(error);
+                          alert(
+                            "Something went wrong please fill all the input and try again..."
+                          );
                         });
                     }}
                   >
@@ -268,39 +269,3 @@ const OnboardSignup: FC = () => {
 };
 
 export default OnboardSignup;
-
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-
-// apiSearchAllergies("pen")
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// apiSearchConditions("dia")
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// apiSearchDoctors("dou")
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
-// apiSearchInsurances("uni")
-//   .then((data) => {
-//     console.log(data);
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });

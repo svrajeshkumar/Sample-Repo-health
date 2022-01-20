@@ -1,1 +1,0 @@
-declare module 'scandit-sdk-react';

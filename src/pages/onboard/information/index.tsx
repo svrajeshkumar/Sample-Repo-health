@@ -99,7 +99,9 @@ const OnboardInformation = () => {
                         handleNext();
                       })
                       .catch((error) => {
-                        alert("Something went wrong. Try again.");
+                        alert(
+                          "Something went wrong please fill all the input and try again..."
+                        );
                       });
                   }}
                 />
@@ -123,7 +125,9 @@ const OnboardInformation = () => {
                         handleNext();
                       })
                       .catch((error) => {
-                        console.log(error);
+                        alert(
+                          "Something went wrong please fill all the input and try again..."
+                        );
                       });
                   }}
                 />
