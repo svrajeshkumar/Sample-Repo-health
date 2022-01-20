@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import ReCaptchaV2 from "react-google-recaptcha";
-import ROUTES from "../../../navigation/routes";
 
+import ROUTES from "../../../navigation/routes";
 import {
   Box,
   Grid,
@@ -24,21 +24,35 @@ import SeactionH3 from "../../../components/Typography/section-h3";
 import SeactionP from "../../../components/Typography/section-body1";
 import SeactionH6 from "../../../components/Typography/section-h6";
 import FormTextInput from "../../../components/formFields/textInput";
-import FormIconTextInput from "../../../components/formFields/iconTextInput";
 import FormMaskInput from "../../../components/formFields/maskInput";
 import FormSelectInput from "../../../components/formFields/selectInput";
 import FormActionButton from "../../../components/formFields/button";
 import { useNavigate } from "react-router-dom";
 
+// API Service
+import {
+  apiUserRegister,
+  apiAddShippingAddress,
+  apiUpdateAboutMe,
+  apiSearchAllergies,
+  apiSearchConditions,
+  apiSearchDoctors,
+  apiSearchInsurances,
+} from "../../../service/api";
+
 const CAPTCHA_SITE_KEY = "6LcLuxceAAAAAHULHoVfgUpkl-xVAA7vNBZMKa0v";
 const OnboardSignup: FC = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const navigate = useNavigate();
-  const handleToken = (token) => {
-    console.log(token);
-  };
-
+  const handleToken = (token) => {};
   const handleExpire = () => {};
+  const [fristName, setFristName] = useState();
+  const [lastName, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [phone, setPhone] = useState();
+  const [source, setSource] = useState();
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <StyledSignupWrapper component="div">
@@ -67,14 +81,22 @@ const OnboardSignup: FC = () => {
                 <FormTextInput
                   fullWidth={true}
                   size="small"
+                  value={fristName}
                   varient="outlined"
                   id="input-legal-frist-name"
                   label="Legal First Name"
+                  onChange={(e) => {
+                    setFristName(e.target.value);
+                  }}
                 />
               </Grid>
               <Grid item md={6} xs={12} lg={6} sm={6}>
                 <FormTextInput
                   fullWidth={true}
+                  value={lastName}
+                  onChange={(e) => {
+                    setLastName(e.target.value);
+                  }}
                   size="small"
                   varient="outlined"
                   id="input-legal-last-name"
@@ -84,6 +106,10 @@ const OnboardSignup: FC = () => {
               <Grid item xs={12}>
                 <FormTextInput
                   autoComplete="off"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                  }}
                   fullWidth={true}
                   size="small"
                   varient="outlined"
@@ -92,37 +118,61 @@ const OnboardSignup: FC = () => {
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormIconTextInput
-                  autoComplete="off"
+                <FormTextInput
                   type={showPassword ? "text" : "password"}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={() => setShowPassword(!showPassword)}
-                        onMouseDown={() => {}}
-                        edge="end"
-                      >
-                        {showPassword ? (
-                          <VisibilityOffIcon />
-                        ) : (
-                          <VisibilityIcon />
-                        )}
-                      </IconButton>
-                    </InputAdornment>
-                  }
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={() => setShowPassword(!showPassword)}
+                          onMouseDown={() => {}}
+                          edge="end"
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon />
+                          ) : (
+                            <VisibilityIcon />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
                   fullWidth={true}
                   size="small"
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                  }}
                   varient="outlined"
                   id="input-password"
                   label="Password"
                 />
               </Grid>
               <Grid item xs={12}>
-                <FormMaskInput />
+                <FormTextInput
+                  autoComplete="off"
+                  fullWidth={true}
+                  InputProps={{
+                    inputComponent: FormMaskInput as any,
+                    value: phone,
+                    onChange: (e) => {
+                      setPhone(e.target.value);
+                    },
+                  }}
+                  size="small"
+                  varient="outlined"
+                  id="input-phone"
+                  label="Phone Number"
+                />
               </Grid>
               <Grid item xs={12}>
-                <FormSelectInput />
+                <FormSelectInput
+                  value={source}
+                  onChange={(e: any) => {
+                    setSource(e.target.value);
+                  }}
+                />
               </Grid>
               <Grid item xs={12}>
                 <Box sx={{ display: "flex" }}>
@@ -178,9 +228,32 @@ const OnboardSignup: FC = () => {
                     disableElevation
                     id="button-submit"
                     size="small"
+                    disabled={loading}
                     variant="contained"
                     color="secondary"
-                    onClick={() => navigate(ROUTES.PATIENT_INFO)}
+                    onClick={() => {
+                      setLoading(true);
+                      apiUserRegister({
+                        first_name: fristName,
+                        last_name: lastName,
+                        email: email,
+                        phone: phone,
+                        password: password,
+                        source: source,
+                      })
+                        .then((response: any) => {
+                          setLoading(false);
+                          const { data } = response;
+                          console.log(data);
+                          navigate(
+                            `${ROUTES.PATIENT_INFO}?id=${data.data._id}&&name=${data.data.first_name}`
+                          );
+                        })
+                        .catch((error) => {
+                          setLoading(false);
+                          console.log(error);
+                        });
+                    }}
                   >
                     Next
                   </FormActionButton>
@@ -195,3 +268,39 @@ const OnboardSignup: FC = () => {
 };
 
 export default OnboardSignup;
+
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+
+// apiSearchAllergies("pen")
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+// apiSearchConditions("dia")
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+// apiSearchDoctors("dou")
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
+// apiSearchInsurances("uni")
+//   .then((data) => {
+//     console.log(data);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });

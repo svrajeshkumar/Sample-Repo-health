@@ -1,43 +1,24 @@
-import React, { FC, HTMLInputTypeAttribute } from "react";
-import { TextField, styled } from "@mui/material";
-
+import React from "react";
+import { styled, TextField as MuiTextField } from "@mui/material";
 type varient = "filled" | "outlined" | "standard";
-type size = "medium" | "small";
-interface formTextInputProps {
+
+export interface TextFieldPropTypes {
   id?: string;
-  fullWidth?: boolean;
-  varient?: varient;
   label?: string;
-  size?: size;
-  autoComplete?: string;
-  type?: HTMLInputTypeAttribute;
+  placeholder?: string;
+  required?: boolean;
+  varient?: varient;
+  [x: string]: any;
 }
 
-const FormTextInput: FC<formTextInputProps> = ({
-  id,
-  fullWidth,
-  varient,
-  label,
-  size,
-  autoComplete,
-  type,
-}) => {
-  const StyledTextField = styled(TextField)(({}) => ({
-    width: "100% !important",
-    height: "100% !important",
-    fontSize: "14px !important",
-  }));
+const StyledTextField = styled(MuiTextField)(({ theme }) => ({
+  width: "100% !important",
+  height: "100% !important",
+  fontSize: "14px !important",
+}));
 
-  return (
-    <StyledTextField
-      type={type}
-      autoComplete={autoComplete}
-      size={size}
-      variant={varient}
-      label={label}
-      fullWidth={fullWidth}
-      id={id}
-    />
-  );
+const TextField: React.FC<TextFieldPropTypes> = (props: TextFieldPropTypes) => {
+  return <StyledTextField variant="outlined" {...props}></StyledTextField>;
 };
-export default FormTextInput;
+
+export default TextField;

@@ -5,17 +5,15 @@ import {
   MenuItem,
   InputLabel,
   FormHelperText,
+  SelectChangeEvent,
 } from "@mui/material";
 
-export type SelectChangeEvent<T = string> =
-  | (Event & { target: { value: T; name: string } })
-  | React.ChangeEvent<HTMLInputElement>;
+interface formSelectInputProps {
+  onChange: (event: SelectChangeEvent<string>, child: React.ReactNode) => void;
+  value: string;
+}
 
-const FormSelectInput: FC = () => {
-  const [age, setAge] = useState("");
-  const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
-  };
+const FormSelectInput: FC<formSelectInputProps> = ({ onChange, value }) => {
   return (
     <FormControl fullWidth>
       <InputLabel id="input-select-label">
@@ -24,13 +22,12 @@ const FormSelectInput: FC = () => {
       <Select
         labelId="input-select-label"
         id="input-select"
-        value={age}
+        value={value}
         label="How did you hear about edgepark?"
-        onChange={handleChange}
+        onChange={onChange}
       >
-        <MenuItem value={10}>Select one...</MenuItem>
-        <MenuItem value={20}>Twenty</MenuItem>
-        <MenuItem value={30}>Thirty</MenuItem>
+        <MenuItem value={`google`}>Google</MenuItem>
+        <MenuItem value={`facebook`}>Facebook</MenuItem>
       </Select>
       <FormHelperText>Optional</FormHelperText>
     </FormControl>

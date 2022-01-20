@@ -26,7 +26,7 @@ export const StyledElemtsBox = styled(Box)(({ theme }) => ({
 export const StyledCartIcon = styled(Box)(({ theme }) => ({
   height: 40,
   width: 40,
-  backgroundColor: theme.palette.primary.main,
+  backgroundColor: theme.palette.secondary.main,
   borderRadius: "100px",
   position: "relative",
   display: "flex",
@@ -57,7 +57,7 @@ export const MenuIconWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledAvatar = styled(Avatar)(({ theme }) => ({
-  background: theme.palette.secondary.main,
+  background: theme.palette.primary.main,
   marginRight: "15px",
   fontSize: "18px",
   [theme.breakpoints.only("xs")]: {

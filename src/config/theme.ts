@@ -14,10 +14,10 @@ let themeUtils = createTheme({
 const theme = createTheme({
   palette: {
     primary: {
-      main: colors.EDGEPARK_GREEN,
+      main: colors.EDGEPARK_GREEN_BLUE,
     },
     secondary: {
-      main: colors.EDGEPARK_GREEN_BLUE,
+      main: colors.EDGEPARK_GREEN,
     },
   },
   components: {

@@ -17,7 +17,7 @@ const FormActionButton: FC<formActionButtonProps> = (
     height: "40px !important",
     borderRadius: "7px",
     width: 150,
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
   }));
 
   return <StyledButton {...props}></StyledButton>;

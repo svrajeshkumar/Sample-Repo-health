@@ -10,7 +10,7 @@ export const StyledSignupWrapper = styled(Box)(({ theme }) => ({
 }));
 
 export const StyledPlayIcon = styled(PlayCircleFilledIcon)(({ theme }) => ({
-  color: theme.palette.secondary.main,
+  color: theme.palette.primary.main,
   fontSize: "35px",
   marginRight: "6px",
 }));

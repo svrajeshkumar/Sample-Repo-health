@@ -7,7 +7,7 @@ interface sectionH6Props {
 
 const SeactionH6: FC<sectionH6Props> = ({ title }) => {
   const StyledSectionBody1 = styled(Typography)(({ theme }) => ({
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontSize: "16px",
     fontWeight: 700,
   }));

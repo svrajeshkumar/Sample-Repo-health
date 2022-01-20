@@ -9,6 +9,9 @@ interface insuranceFormProps {
 const OnboardInsurance: React.FC<insuranceFormProps> = ({ onClick }) => {
   const StyledInsuranceWrapper = styled(Box)(({ theme }) => ({
     paddingTop: 20,
+    [theme.breakpoints.up("sm")]: {
+      width: `400px !important`,
+    },
   }));
 
   const StyledInfoLabel = styled(Typography)(({ theme }) => ({

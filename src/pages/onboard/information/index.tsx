@@ -1,13 +1,7 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Stepper,
-  Step,
-  StepButton,
-  Typography,
-  StepLabel,
-  StepContent,
-} from "@mui/material";
+import { Box, Stepper, Step, StepLabel, StepContent } from "@mui/material";
+import { useLocation } from "react-router-dom";
+
 import { StyledInformationWrapper } from "./styled";
 import SeactionH3 from "../../../components/Typography/section-h3";
 import SeactionBody1 from "../../../components/Typography/section-body1";
@@ -17,6 +11,7 @@ import ProfileInfoForm from "./profile";
 import OnboardDoctorsInfo from "./doctors";
 import FormActionButton from "../../../components/formFields/button";
 import OnboardInsurance from "./insurance";
+import { apiAddShippingAddress, apiUpdateAboutMe } from "../../../service/api";
 
 const steps = ["Your address", "About you", "Your doctors", "Your insurance"];
 const stpesInfo = [
@@ -38,9 +33,14 @@ const stpesInfo = [
   },
 ];
 
+function useQuery() {
+  const { search } = useLocation();
+  return React.useMemo(() => new URLSearchParams(search), [search]);
+}
+
 const OnboardInformation = () => {
   const [activeStep, setActiveStep] = React.useState(-1);
-
+  const query = useQuery();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -48,11 +48,16 @@ const OnboardInformation = () => {
   const handleStep = (step: number) => () => {
     setActiveStep(step);
   };
-
   return (
     <StyledInformationWrapper>
       <SeactionH3
-        title={activeStep !== -1 ? stpesInfo[activeStep].title : "Hi, Erik!"}
+        title={
+          activeStep !== -1
+            ? stpesInfo[activeStep].title
+            : query.get("name")
+            ? `Hi, ${query.get("name")}!`
+            : "Hi !"
+        }
       />
       <Box sx={{ marginTop: "20px", marginBottom: "20px" }}>
         <SeactionBody1
@@ -78,8 +83,51 @@ const OnboardInformation = () => {
           <Step key={label}>
             <StepLabel>{label}</StepLabel>
             <StepContent>
-              {activeStep === 0 && <ShippingAddressForm onClick={handleNext} />}
-              {activeStep === 1 && <ProfileInfoForm onClick={handleNext} />}
+              {activeStep === 0 && (
+                <ShippingAddressForm
+                  onClick={(data: any) => {
+                    apiAddShippingAddress({
+                      userId: query.get("id"),
+                      street1: data.street1,
+                      street2: data.street2,
+                      city: data.cityName,
+                      state: data.state,
+                      zip: data.zipCode,
+                      country: "US",
+                    })
+                      .then(() => {
+                        handleNext();
+                      })
+                      .catch((error) => {
+                        alert("Something went wrong. Try again.");
+                      });
+                  }}
+                />
+              )}
+              {activeStep === 1 && (
+                <ProfileInfoForm
+                  onClick={(data) => {
+                    apiUpdateAboutMe({
+                      userId: query.get("id"),
+                      dob: data.dob,
+                      social_no: Number(data.secureNumber),
+                      allergies: data.allergies.map(
+                        (item) => item.allergy_name
+                      ),
+                      conditions: data.conditions.map(
+                        (item) => item.condition_name
+                      ),
+                      sex: data.gender,
+                    })
+                      .then((data) => {
+                        handleNext();
+                      })
+                      .catch((error) => {
+                        console.log(error);
+                      });
+                  }}
+                />
+              )}
               {activeStep === 2 && <OnboardDoctorsInfo onClick={handleNext} />}
               {activeStep === 3 && (
                 <OnboardInsurance

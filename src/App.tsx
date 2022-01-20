@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import ROUTES from "./navigation/routes";
+import ScrollToTop from "./utils/useScroll";
 
 // Screens
 import OnboardSignup from "./pages/onboard/signup";

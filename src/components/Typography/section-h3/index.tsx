@@ -7,7 +7,7 @@ interface sectionH3Props {
 
 const SeactionH1: FC<sectionH3Props> = ({ title }) => {
   const StyledTitle = styled(Typography)(({ theme }) => ({
-    color: theme.palette.secondary.main,
+    color: theme.palette.primary.main,
     fontSize: "40px",
     fontWeight: 700,
     [theme.breakpoints.down("sm")]: {
